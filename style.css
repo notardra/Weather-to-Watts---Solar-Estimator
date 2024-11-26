@@ -1,0 +1,114 @@
+/* General styling for the body */
+body {
+    font-family: 'Arial', sans-serif; /* Clean sans-serif font */
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f7f7f7; /* Light grey background for a modern look */
+    color: #333; /* Dark grey text for readability */
+  }
+  
+  /* Container for the weather app */
+  .weather-container {
+    background: #ffffff; /* White card background */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  /* Title styling */
+  .weather-container h1 {
+    margin: 0;
+    font-size: 26px;
+    color: #444; /* Slightly darker grey for the title */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+  }
+  
+  /* Input styling */
+  input {
+    width: 100%;
+    padding: 12px;
+    margin: 15px 0;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+  }
+  
+  input:focus {
+    border-color: #555; /* Dark grey border on focus */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* More prominent shadow on focus */
+  }
+  
+  /* Button styling */
+  button {
+    background: #555; /* Dark grey button for contrast */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+  }
+  
+  button:hover {
+    background: #777; /* Slightly lighter grey on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+  }
+  
+  button:active {
+    transform: scale(0.98); /* Slight press effect */
+  }
+  
+  /* Weather result styling */
+  #weatherResult {
+    margin-top: 20px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #555; /* Grey text for consistency */
+  }
+  
+  #weatherResult h2 {
+    font-size: 22px;
+    color: #333;
+  }
+  
+  #weatherResult p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #444;
+  }
+  
+  /* Solar panel result styling */
+  #solarResult {
+    margin-top: 20px;
+    background: #f9f9f9; /* Subtle grey for the solar result card */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
+    text-align: left;
+    font-size: 16px;
+    color: #555;
+  }
+  
+  #solarResult h3 {
+    font-size: 18px;
+    color: #444;
+  }
+  
+  #solarResult p {
+    margin: 5px 0;
+  }
+  
