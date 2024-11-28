@@ -15,11 +15,11 @@ body {
   /* Container for the weather app */
 .weather-container {
     background: #ffffff; /* White card background */
-    padding: 30px;
+    padding: 40px;
     border-radius: 15px;
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    max-width: 450px;
-    width: 100%;
+    max-width: 600px;
+    width: 80%;
     text-align: center;
     display: flex;          /* Activates flexbox */
     flex-direction: column; /* Ensures items stack vertically */
