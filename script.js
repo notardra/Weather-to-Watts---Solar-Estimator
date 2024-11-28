@@ -9,6 +9,13 @@ const solarResultDiv = document.getElementById("solarResult"); // New reference 
 
 // Add event listener to the "Get Weather" button
 getWeatherButton.addEventListener("click", () => {
+  // Add "Enter" key functionality
+cityInput.addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault(); // Prevent form submission or default behavior
+    getWeather(); // Call the same function as clicking the button
+  }
+});
   // Get the city name entered by the user
   const city = cityInput.value.trim();
 
