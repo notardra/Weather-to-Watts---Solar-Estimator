@@ -21,6 +21,10 @@ body {
     max-width: 450px;
     width: 100%;
     text-align: center;
+    display: flex;
+    flex-direction: column; /* Ensures items stack vertically */
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
   }
   
   /* Title styling */
@@ -36,7 +40,7 @@ body {
   input {
     width: 100%;
     padding: 12px;
-    margin: 15px 0;
+    margin: 10px 0;
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 8px;
