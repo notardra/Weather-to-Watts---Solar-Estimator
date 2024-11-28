@@ -13,7 +13,7 @@ body {
   }
   
   /* Container for the weather app */
-  .weather-container {
+.weather-container {
     background: #ffffff; /* White card background */
     padding: 30px;
     border-radius: 15px;
@@ -21,11 +21,11 @@ body {
     max-width: 450px;
     width: 100%;
     text-align: center;
-    display: flex;
+    display: flex;          /* Activates flexbox */
     flex-direction: column; /* Ensures items stack vertically */
-    justify-content: center; /* Centers horizontally */
-    align-items: center; /* Centers vertically */
-  }
+    justify-content: center; /* Centers items horizontally */
+    align-items: center;    /* Centers items vertically */
+}
   
   /* Title styling */
   .weather-container h1 {
@@ -38,9 +38,9 @@ body {
   
   /* Input styling */
   input {
-    width: 100%;
+    width: 60%;
     padding: 12px;
-    margin: 10px 0;
+    margin: 10px auto;
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 8px;
