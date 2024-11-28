@@ -44,7 +44,7 @@ getWeatherButton.addEventListener("click", () => {
       const energy = calculateSolarEnergy(clouds.all);
       solarResultDiv.innerHTML = `
         <h3>Solar Panel Energy Estimate</h3>
-        <p>Based on current weather, a 1.5m² solar panel can generate approximately:</p>
+        <p>Based on current weather, a 1.6m² solar panel can generate approximately:</p>
         <p><strong>${energy} Wh</strong> of energy per day.</p>
       `;
     })
@@ -59,7 +59,7 @@ getWeatherButton.addEventListener("click", () => {
 // Function to calculate solar panel energy generation
 function calculateSolarEnergy(clouds, hoursOfSunlight = 5) {
   const solarIrradiance = 1000 * ((100 - clouds) / 100); // Adjust for cloud cover
-  const panelArea = 1.5; // 1.5 m² average panel
+  const panelArea = 1.6; // 1.6 m² average panel
   const efficiency = 0.2; // 20% efficiency
   const energy = solarIrradiance * panelArea * efficiency * hoursOfSunlight; // Energy in watt-hours
   return energy.toFixed(2); // Round to 2 decimal places
