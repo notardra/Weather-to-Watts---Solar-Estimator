@@ -9,20 +9,25 @@
 <body>
   <div class="weather-container">
     <h1>Live Weather Check</h1>
+
     <!-- Input field to enter the city name -->
-    <input type="text" id="city" placeholder="Enter city name">
+    <input type="text" id="city" placeholder="Enter name of CITY">
+    
     <!-- Button to fetch the weather -->
     <button id="getWeather">Get Weather</button>
+
     <!-- Area to display the weather results -->
-    <div id="weatherResult"></div>
-<!-- New section to display sunrise and sunset times -->
-    <div id="sunriseSunsetTimes">
-      <p>Sunrise: <span id="sunrise">--:--</span></p>
-      <p>Sunset: <span id="sunset">--:--</span></p>
+    <div id="weatherResult">
+      <!-- Weather results will be dynamically inserted here -->
     </div>
+
     <!-- Section to display solar panel energy -->
-    <div id="solarResult"></div>
+    <div id="solarResult">
+      <!-- Solar energy results will be dynamically inserted here -->
+    </div>
   </div>
+  
+  <!-- Include the JavaScript file -->
   <script src="script.js"></script>
 </body>
 </html>
