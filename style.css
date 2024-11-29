@@ -116,3 +116,29 @@ body {
     margin: 5px 0;
   }
   
+/* Sunrise and Sunset Times Styling */
+#sunriseSunsetTimes {
+    margin-top: 20px;
+    padding: 15px;
+    background: #edf7f8; /* Light teal background to complement the design */
+    border: 1px solid #cce7e8; /* Subtle border to define the section */
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05); /* Gentle shadow for depth */
+    font-size: 16px;
+    color: #0a0a0a; /* Dark text for contrast */
+    text-align: left; /* Align text to the left */
+}
+
+/* Sunrise and Sunset Paragraphs */
+#sunriseSunsetTimes p {
+    margin: 8px 0;
+    font-size: 16px;
+    font-weight: bold; /* Make the text bold for emphasis */
+    color: #444; /* Consistent with title styling */
+}
+
+/* Styling for Sunrise and Sunset Values */
+#sunriseSunsetTimes span {
+    color: #065a5c; /* Distinctive color for sunrise/sunset times */
+    font-weight: bold;
+}
