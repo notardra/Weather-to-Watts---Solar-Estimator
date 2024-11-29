@@ -7,9 +7,6 @@ const getWeatherButton = document.getElementById("getWeather");
 const weatherResultDiv = document.getElementById("weatherResult");
 const solarResultDiv = document.getElementById("solarResult"); // New reference for solar energy section
 
-// Add event listener to the "Get Weather" button
-getWeatherButton.addEventListener("click", () => {
-
 // Add "Enter" key functionality
 cityInput.addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
@@ -17,7 +14,10 @@ cityInput.addEventListener("keypress", function (event) {
     getWeather(); // Call the same function as clicking the button
   }
 });
-  
+
+// Add event listener to the "Get Weather" button
+getWeatherButton.addEventListener("click", getWeather);
+
 // Fetch and display weather data
 function getWeather() {
   const city = cityInput.value.trim();
@@ -33,19 +33,19 @@ function getWeather() {
   fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
     .then(response => {
       if (!response.ok) {
-        throw new Error("City not found");
+        throw new Error("City not found. Please check the city name and try again");
       }
       return response.json();
     })
     .then(data => {
       // Extract relevant data from the API response
       const { name, main, weather, clouds, sys } = data;
-      const sunrise = new Date(sys.sunrise * 1000).toISOString().split("T")[1].slice(0, 5); // Convert to HH:MM
-      const sunset = new Date(sys.sunset * 1000).toISOString().split("T")[1].slice(0, 5); // Convert to HH:MM
-
-      // Display the weather details
+      const sunrise = new Date(sys.sunrise * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const sunset = new Date(sys.sunset * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+ 
+      // Display the weather details with country code
       weatherResultDiv.innerHTML = `
-        <h2>${name}</h2>
+        <h2>${name}, ${sys.country}</h2>
         <p>Temperature: ${main.temp}°C</p>
         <p>Weather: ${weather[0].description}</p>
         <p>Humidity: ${main.humidity}%</p>
@@ -53,9 +53,9 @@ function getWeather() {
         <p>Sunrise: ${sunrise}</p>
         <p>Sunset: ${sunset}</p>
       `;
-
+      
       // Calculate solar panel energy generation
-      const energy = calculateSolarEnergy(clouds.all, sunrise, sunset);
+      const energy = calculateSolarEnergy(clouds.all, sys.sunrise * 1000, sys.sunset * 1000);
       solarResultDiv.innerHTML = `
         <h3>Solar Panel Energy Estimate</h3>
         <p>Based on current weather, a 1.6m² solar panel can generate approximately:</p>
@@ -77,17 +77,17 @@ function calculateSolarEnergy(clouds, sunrise, sunset) {
   const currentTime = new Date(); // Current time
 
  // Convert sunrise, sunset, and current time to comparable Date objects
-  const sunriseTime = new Date(`1970-01-01T${sunrise}:00Z`);
-  const sunsetTime = new Date(`1970-01-01T${sunset}:00Z`);
+  const sunriseTime = new Date(sunrise);
+  const sunsetTime = new Date(sunset);
 
   // Check if it's nighttime
-  if (currentTimeUTC < sunriseTime || currentTimeUTC > sunsetTime) {
+  if (currentTime < sunriseTime || currentTime > sunsetTime) {
     return "0.00"; // No energy generation at night
   }
 
   // Daytime calculation
   const solarIrradiance = 1000 * ((100 - clouds) / 100); // Adjust for cloud cover
-  const hoursOfSunlight = ((sunsetTime - sunriseTime) / (1000 * 60 * 60); // Calculate daylight duration
+  const hoursOfSunlight = (sunsetTime - sunriseTime) / (1000 * 60 * 60); // Calculate daylight duration
   const energy = solarIrradiance * panelArea * efficiency * hoursOfSunlight; // Energy in watt-hours
   
   return energy.toFixed(2); // Round to 2 decimal places
