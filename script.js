@@ -37,6 +37,8 @@ cityInput.addEventListener("keypress", function (event) {
     .then(data => {
       // Extract relevant data from the API response
       const { name, main, weather, clouds } = data;
+      const sunrise = new Date(sys.sunrise * 1000).toISOString().split("T")[1].slice(0, 5); // Convert to HH:MM
+      const sunset = new Date(sys.sunset * 1000).toISOString().split("T")[1].slice(0, 5); // Convert to HH:MM
 
       // Display the weather details
       weatherResultDiv.innerHTML = `
@@ -45,10 +47,12 @@ cityInput.addEventListener("keypress", function (event) {
         <p>Weather: ${weather[0].description}</p>
         <p>Humidity: ${main.humidity}%</p>
         <p>Cloud Cover: ${clouds.all}%</p>
+        <p>Sunrise: ${sunrise}</p>
+        <p>Sunset: ${sunset}</p>
       `;
 
       // Calculate solar panel energy generation
-      const energy = calculateSolarEnergy(clouds.all);
+      const energy = calculateSolarEnergy(clouds.all, sunrise, sunset);
       solarResultDiv.innerHTML = `
         <h3>Solar Panel Energy Estimate</h3>
         <p>Based on current weather, a 1.6m² solar panel can generate approximately:</p>
@@ -64,11 +68,27 @@ cityInput.addEventListener("keypress", function (event) {
 });
 
 // Function to calculate solar panel energy generation
-function calculateSolarEnergy(clouds, hoursOfSunlight = 5) {
+function calculateSolarEnergy(clouds, sunrise, sunset) {
   const solarIrradiance = 1000 * ((100 - clouds) / 100); // Adjust for cloud cover
   const panelArea = 1.6; // 1.6 m² average panel
   const efficiency = 0.2; // 20% efficiency
+  const currentTime = new Date(); // Current time
+
+ // Convert sunrise, sunset, and current time to comparable Date objects
+  const sunriseTime = new Date(`1970-01-01T${sunrise}:00Z`);
+  const sunsetTime = new Date(`1970-01-01T${sunset}:00Z`);
+  const currentTimeUTC = new Date(`1970-01-01T${currentTime.toISOString().split("T")[1]}`);
+
+  // Check if it's nighttime
+  if (currentTimeUTC < sunriseTime || currentTimeUTC > sunsetTime) {
+    return "0.00"; // No energy generation at night
+  }
+
+  // Daytime calculation
+  const solarIrradiance = 1000 * ((100 - clouds) / 100); // Adjust for cloud cover
+  const hoursOfSunlight = ((sunsetTime - sunriseTime) / (1000 * 60 * 60); // Calculate daylight duration
   const energy = solarIrradiance * panelArea * efficiency * hoursOfSunlight; // Energy in watt-hours
+  
   return energy.toFixed(2); // Round to 2 decimal places
 }
 
