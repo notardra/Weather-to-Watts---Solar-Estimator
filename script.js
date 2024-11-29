@@ -9,16 +9,19 @@ const solarResultDiv = document.getElementById("solarResult"); // New reference 
 
 // Add event listener to the "Get Weather" button
 getWeatherButton.addEventListener("click", () => {
-  // Add "Enter" key functionality
+
+// Add "Enter" key functionality
 cityInput.addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
     event.preventDefault(); // Prevent form submission or default behavior
     getWeather(); // Call the same function as clicking the button
   }
 });
-  // Get the city name entered by the user
+  
+// Fetch and display weather data
+function getWeather() {
   const city = cityInput.value.trim();
-
+  
   // Check if the input is empty
   if (!city) {
     weatherResultDiv.innerHTML = "Please enter a city name.";
@@ -36,7 +39,7 @@ cityInput.addEventListener("keypress", function (event) {
     })
     .then(data => {
       // Extract relevant data from the API response
-      const { name, main, weather, clouds } = data;
+      const { name, main, weather, clouds, sys } = data;
       const sunrise = new Date(sys.sunrise * 1000).toISOString().split("T")[1].slice(0, 5); // Convert to HH:MM
       const sunset = new Date(sys.sunset * 1000).toISOString().split("T")[1].slice(0, 5); // Convert to HH:MM
 
@@ -69,7 +72,6 @@ cityInput.addEventListener("keypress", function (event) {
 
 // Function to calculate solar panel energy generation
 function calculateSolarEnergy(clouds, sunrise, sunset) {
-  const solarIrradiance = 1000 * ((100 - clouds) / 100); // Adjust for cloud cover
   const panelArea = 1.6; // 1.6 m² average panel
   const efficiency = 0.2; // 20% efficiency
   const currentTime = new Date(); // Current time
@@ -77,7 +79,6 @@ function calculateSolarEnergy(clouds, sunrise, sunset) {
  // Convert sunrise, sunset, and current time to comparable Date objects
   const sunriseTime = new Date(`1970-01-01T${sunrise}:00Z`);
   const sunsetTime = new Date(`1970-01-01T${sunset}:00Z`);
-  const currentTimeUTC = new Date(`1970-01-01T${currentTime.toISOString().split("T")[1]}`);
 
   // Check if it's nighttime
   if (currentTimeUTC < sunriseTime || currentTimeUTC > sunsetTime) {
